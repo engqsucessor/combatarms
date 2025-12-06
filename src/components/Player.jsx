@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { RigidBody, CapsuleCollider } from '@react-three/rapier'
 import { useKeyboardControls } from '../hooks/useKeyboardControls'
@@ -10,8 +10,11 @@ const SPRINT_MULTIPLIER = 1.5
 const CROUCH_MULTIPLIER = 0.5
 const JUMP_FORCE = 8
 
-function Player() {
+const Player = forwardRef((props, ref) => {
   const playerRef = useRef()
+
+  // Expose playerRef to parent
+  useImperativeHandle(ref, () => playerRef.current)
   const { camera } = useThree()
   const [velocity] = useState(() => new Vector3())
   const keys = useKeyboardControls()
@@ -99,6 +102,6 @@ function Player() {
       <Weapon />
     </>
   )
-}
+})
 
 export default Player

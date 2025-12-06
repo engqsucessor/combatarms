@@ -55,22 +55,43 @@ function Weapon() {
         if (intersects.length > 0) {
           const hit = intersects[0]
 
-          // Check if we hit an enemy
-          if (hit.object.userData.type === 'zombie') {
-            // Deal damage (handled in enemy component)
-            console.log('Hit zombie at', hit.point)
+          // Check if we hit a zombie
+          let zombieHit = hit.object
+          while (zombieHit && !zombieHit.userData.type) {
+            zombieHit = zombieHit.parent
           }
 
-          // Create bullet hole
-          const bulletHole = new THREE.Mesh(
-            new THREE.CircleGeometry(0.05, 8),
-            new THREE.MeshBasicMaterial({ color: 0x222222 })
-          )
-          bulletHole.position.copy(hit.point)
-          bulletHole.lookAt(hit.point.clone().add(hit.normal))
-          scene.add(bulletHole)
+          if (zombieHit && zombieHit.userData.type === 'zombie') {
+            // Damage zombie via event
+            const damageEvent = new CustomEvent('zombieDamage', {
+              detail: {
+                zombieId: zombieHit.userData.id,
+                damage: 35 // M4A1 damage
+              }
+            })
+            window.dispatchEvent(damageEvent)
 
-          setTimeout(() => scene.remove(bulletHole), 5000)
+            // Blood splatter effect
+            const blood = new THREE.Mesh(
+              new THREE.CircleGeometry(0.1, 8),
+              new THREE.MeshBasicMaterial({ color: 0x8b0000 })
+            )
+            blood.position.copy(hit.point)
+            blood.lookAt(hit.point.clone().add(hit.normal))
+            scene.add(blood)
+            setTimeout(() => scene.remove(blood), 3000)
+          } else {
+            // Create bullet hole on walls
+            const bulletHole = new THREE.Mesh(
+              new THREE.CircleGeometry(0.05, 8),
+              new THREE.MeshBasicMaterial({ color: 0x222222 })
+            )
+            bulletHole.position.copy(hit.point)
+            bulletHole.lookAt(hit.point.clone().add(hit.normal))
+            scene.add(bulletHole)
+
+            setTimeout(() => scene.remove(bulletHole), 5000)
+          }
         }
       }
     }

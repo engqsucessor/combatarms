@@ -1,12 +1,15 @@
+import { useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
 import { PointerLockControls, Sky } from '@react-three/drei'
 import Player from './components/Player'
 import Map from './components/Map'
+import WaveSpawner from './components/WaveSpawner'
 import GameHUD from './components/UI/GameHUD'
-import { useGameStore } from './stores/gameStore'
 
 function Game() {
+  const playerRef = useRef()
+
   return (
     <>
       {/* 3D Canvas */}
@@ -26,8 +29,9 @@ function Game() {
         />
 
         <Physics gravity={[0, -30, 0]}>
-          <Player />
+          <Player ref={playerRef} />
           <Map />
+          <WaveSpawner playerRef={playerRef} />
         </Physics>
 
         <PointerLockControls />
