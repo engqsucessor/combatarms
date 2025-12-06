@@ -1,0 +1,226 @@
+.hud {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  color: white;
+  font-family: 'Courier New', monospace;
+  z-index: 1000;
+}
+
+/* Crosshair */
+.crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+}
+
+.crosshair-line {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.crosshair-top {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 10px;
+}
+
+.crosshair-bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 10px;
+}
+
+.crosshair-left {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 2px;
+}
+
+.crosshair-right {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 2px;
+}
+
+/* Bottom Left - Health/Armor */
+.bottom-left {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.stat-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-label {
+  font-size: 18px;
+  font-weight: bold;
+  width: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.bar-container {
+  width: 200px;
+  height: 25px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.bar-health {
+  background: linear-gradient(90deg, #ff0000, #ff4444);
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.bar-armor {
+  background: linear-gradient(90deg, #0099ff, #44bbff);
+  box-shadow: 0 0 10px rgba(0, 153, 255, 0.5);
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: bold;
+  min-width: 50px;
+  text-align: right;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Bottom Right - Ammo */
+.bottom-right {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+}
+
+.weapon-info {
+  text-align: right;
+}
+
+.weapon-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.ammo-display {
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+}
+
+.current-ammo {
+  color: #00ff00;
+}
+
+.ammo-separator {
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 10px;
+}
+
+.reserve-ammo {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 36px;
+}
+
+.reloading {
+  color: #ffaa00;
+  animation: pulse 0.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Top Center - Wave Info */
+.top-center {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.wave-info {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px 40px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.wave-number {
+  font-size: 32px;
+  font-weight: bold;
+  color: #ffaa00;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  margin-bottom: 10px;
+}
+
+.zombies-remaining {
+  font-size: 20px;
+  color: #ff4444;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Top Left - Stats */
+.top-left {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.stat-item {
+  font-size: 20px;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Instructions */
+.instructions {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.instructions div {
+  margin: 3px 0;
+}

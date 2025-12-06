@@ -1,148 +1,209 @@
-# Combat Arms: Cabin Fever - Unity Remake
+# Combat Arms: Cabin Fever - Browser FPS
 
-A faithful recreation of the classic Combat Arms Cabin Fever zombie survival mode in Unity.
+A playable-in-browser recreation of the classic Combat Arms Cabin Fever zombie survival mode using React + Three.js.
 
-## Features
+## 🎮 Features
 
-### Player Systems
-- **FPS Controller**: WASD movement, sprint (Shift), crouch (Ctrl), jump
-- **Mouse Look**: Smooth camera control with sensitivity settings
-- **HP/AP System**: 100 HP + 100 AP with armor absorption mechanics
-- **Stamina System**: Sprint drains stamina, regenerates when not sprinting
-- **Hit Detection**: Headshot (2x), body (1x), arms (0.85x), legs (0.75x) multipliers
+### ✅ Currently Implemented
 
-### Weapon Systems
-- **Realistic Shooting**: Hitscan with spread, recoil patterns
-- **ADS (Aim Down Sights)**: Reduced spread when aiming
-- **Ammo Management**: Magazine + reserve ammo, realistic reload times
-- **Multiple Weapons**:
-  - M4A1: 35 damage, 750 RPM, balanced
-  - AK-47: 42 damage, 600 RPM, high recoil
-  - SCAR-L: 38 damage, 650 RPM, low recoil
+**Player Systems:**
+- First-person controls with WASD movement
+- Pointer lock camera (mouse look)
+- Sprint (Shift), Crouch (Ctrl), Jump (Space)
+- HP (100) + AP (100) system with armor absorption
+- Physics-based movement with Rapier
 
-### Cabin Fever Game Mode
-- **Wave System**: Increasing difficulty each wave
-- **Dynamic Spawning**: Zombies spawn progressively
-- **Prep Time**: 30 seconds between waves
-- **Score Tracking**: Points for kills and objectives
-- **Scaling Difficulty**: More zombies + more health per wave
+**Weapon System:**
+- M4A1 assault rifle
+- Raycast shooting with hit detection
+- Recoil patterns (vertical + random horizontal)
+- Reload system (R key, 2 second animation)
+- Magazine (30) + Reserve ammo (90)
+- Bullet holes on impact
+- Muzzle flash effects
 
-### Zombie AI
-- **NavMesh Pathfinding**: Smart navigation around obstacles
-- **Target Detection**: Finds nearest player within range
-- **Chase Behavior**: Speeds up when chasing
-- **Attack System**: Melee attacks with cooldown
-- **Health Scaling**: Gets tougher each wave
+**Map:**
+- Cabin Fever layout with wooden walls
+- Doorways and cover objects (crates)
+- Collision detection
+- Shadows and lighting
 
-## Project Structure
+**UI/HUD:**
+- Health and armor bars (bottom left)
+- Ammo counter (bottom right)
+- Crosshair (center)
+- Wave info (top center)
+- Kill counter
+- Control instructions
+
+**Game Mode:**
+- Wave-based spawning system
+- Score tracking
+- Zustand state management
+
+### 🚧 Coming Soon
+- [ ] Zombie AI with pathfinding
+- [ ] Wave spawner with increasing difficulty
+- [ ] More weapons (AK-47, shotgun, sniper)
+- [ ] Audio system (gunshots, footsteps, ambient)
+- [ ] Visual effects (blood, smoke, particles)
+- [ ] Better 3D models (currently using primitives)
+- [ ] Multiplayer with Socket.io
+
+## 🛠️ Tech Stack
+
+- **React 18** - UI framework
+- **Three.js** - 3D rendering
+- **React Three Fiber** - React renderer for Three.js
+- **@react-three/drei** - Useful helpers
+- **@react-three/rapier** - Physics engine (WASM)
+- **Zustand** - State management
+- **Vite** - Build tool and dev server
+
+## 📁 Project Structure
 
 ```
-Assets/
-├── Scripts/
-│   ├── Player/
-│   │   ├── FPSController.cs      # Movement and camera
-│   │   └── PlayerHealth.cs       # HP/AP system
-│   ├── Weapons/
-│   │   ├── WeaponBase.cs         # Base weapon class
-│   │   └── AssaultRifle.cs       # AR implementations
-│   ├── Zombie/
-│   │   ├── ZombieAI.cs           # AI behavior
-│   │   └── ZombieHealth.cs       # Health system
-│   ├── GameMode/
-│   │   └── CabinFeverGameMode.cs # Wave spawning
+src/
+├── components/
+│   ├── Player.jsx           # FPS controller with physics
+│   ├── Weapon.jsx           # Shooting mechanics
+│   ├── Map.jsx              # Cabin Fever map layout
 │   └── UI/
-│       └── GameHUD.cs            # HUD display
-├── Scenes/
-│   └── CabinFever.unity          # Main game scene
-└── Prefabs/
-    ├── Player.prefab
-    └── Zombie.prefab
+│       ├── GameHUD.jsx      # In-game HUD overlay
+│       ├── GameHUD.css
+│       ├── MainMenu.jsx     # Start screen
+│       └── MainMenu.css
+├── stores/
+│   └── gameStore.js         # Zustand global state
+├── hooks/
+│   └── useKeyboardControls.js
+├── Game.jsx                 # Main 3D scene
+├── App.jsx                  # App entry point
+└── main.jsx                 # React entry
 ```
 
-## Setup Instructions
+## 🚀 Quick Start
 
-### 1. Unity Version
-- Unity 2022.3 LTS or newer recommended
+### Install Dependencies
+```bash
+npm install
+```
 
-### 2. Required Packages
-- TextMeshPro (for UI)
-- AI Navigation (NavMesh)
+### Run Development Server
+```bash
+npm run dev
+```
 
-### 3. Scene Setup
+Then open http://localhost:3000
 
-**Create Player:**
-1. Create Empty GameObject named "Player"
-2. Add CharacterController component
-3. Add FPSController script
-4. Add PlayerHealth script
-5. Add Camera as child, position at (0, 0.6, 0)
+### Build for Production
+```bash
+npm run build
+npm run preview
+```
 
-**Create Weapon:**
-1. Add AssaultRifle.CreateM4A1() in Player's Start() method
-2. Or create weapon GameObject and attach AssaultRifle script
+## 🎯 How to Play
 
-**Create Zombie:**
-1. Create Capsule GameObject named "Zombie"
-2. Add NavMeshAgent component
-3. Add ZombieAI script
-4. Add ZombieHealth script
-5. Set Layer to "Enemy"
+1. Click **START GAME** in the main menu
+2. Click anywhere in the game to lock your mouse
+3. Use WASD to move, mouse to aim
+4. Left click to shoot
+5. Press R to reload
+6. Press ESC to unlock mouse and pause
 
-**Setup Scene:**
-1. Create ground plane
-2. Bake NavMesh (Window → AI → Navigation)
-3. Add CabinFeverGameMode to empty GameObject
-4. Create spawn points (Empty GameObjects)
-5. Assign spawn points to CabinFeverGameMode
+## ⌨️ Controls
 
-**Setup UI:**
-1. Create Canvas
-2. Add health/armor bars (UI Images)
-3. Add ammo text (TextMeshPro)
-4. Add wave info text
-5. Add GameHUD script to Canvas
+| Action | Key |
+|--------|-----|
+| Move | WASD or Arrow Keys |
+| Sprint | Left Shift |
+| Crouch | Left Ctrl |
+| Jump | Space |
+| Look Around | Mouse |
+| Shoot | Left Click |
+| Reload | R |
+| Pause/Unlock Mouse | ESC |
 
-### 4. Layer Setup
-- Create "Player" layer
-- Create "Enemy" layer
-- Create "Ground" layer
-- Assign to respective objects
+## 🎨 Features Showcase
 
-### 5. Input Setup
-- Edit → Project Settings → Input Manager
-- Ensure "Fire1" (Mouse 0), "Fire2" (Mouse 1), "Jump" are configured
+### HP/AP System
+Just like Combat Arms:
+- 100 HP (red bar)
+- 100 AP armor (blue bar)
+- Armor absorbs 50% of damage
+- When armor depletes, full damage to health
 
-## Controls
+### Weapon Mechanics
+- Realistic recoil patterns
+- Bullet spread (improved when aiming)
+- Magazine system with reserves
+- 2-second reload animation
+- Visual bullet holes on impact
 
-- **WASD**: Move
-- **Shift**: Sprint
-- **Ctrl**: Crouch
-- **Space**: Jump
-- **Mouse**: Look around
-- **Left Click**: Shoot
-- **Right Click**: Aim Down Sights
-- **R**: Reload
+### Combat Arms Authentic HUD
+- Health/Armor bars bottom left
+- Ammo counter bottom right (30/90 format)
+- Wave counter top center
+- Kill counter top left
+- Clean crosshair design
 
-## Upcoming Features
+## 🔧 Development Roadmap
 
-- [ ] More weapon types (SMGs, Shotguns, Snipers)
-- [ ] Weapon attachments system
-- [ ] Multiple zombie types (Fast, Heavy, Boss)
-- [ ] Cabin Fever map layout
-- [ ] Sound effects and music
-- [ ] Weapon models and animations
-- [ ] Multiplayer support
-- [ ] Leaderboards and stats
+**Phase 1: Core Gameplay** ✅
+- [x] FPS controls
+- [x] Weapon shooting
+- [x] HUD
+- [x] Basic map
 
-## Development Notes
+**Phase 2: AI & Combat** (In Progress)
+- [ ] Zombie AI with navmesh
+- [ ] Wave spawning system
+- [ ] Health/damage system
+- [ ] Kill tracking
 
-This is the foundation - all core systems are in place. Next steps:
-1. Create 3D models or use placeholders
-2. Add animations
-3. Build the Cabin Fever map
-4. Add visual effects
-5. Implement sound
+**Phase 3: Content**
+- [ ] More weapons (AK-47, shotgun, sniper)
+- [ ] Weapon switching (1-5 keys)
+- [ ] Different zombie types
+- [ ] Better Cabin Fever map
 
-## License
+**Phase 4: Polish**
+- [ ] Sound effects (Howler.js)
+- [ ] Visual effects (particles, blood)
+- [ ] Animations
+- [ ] Post-processing
+
+**Phase 5: Multiplayer**
+- [ ] Socket.io server
+- [ ] Player sync
+- [ ] Leaderboards
+
+## 🌐 Deployment
+
+Deploy to Vercel, Netlify, or GitHub Pages:
+
+```bash
+npm run build
+# Upload 'dist' folder
+```
+
+The game runs entirely in the browser - no installation needed!
+
+## 🤝 Contributing
+
+Want to add features? PRs welcome!
+
+Ideas:
+- Add more zombie types
+- Implement power-ups
+- Create new maps
+- Add weapon skins
+- Improve AI behavior
+
+## 📝 License
 
 Fan project for educational purposes. Combat Arms is owned by Nexon.
+
+---
+
+**Play it in your browser. No downloads, no install. Just FPS action! 🎮**
