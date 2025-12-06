@@ -91,36 +91,73 @@ function Zombie({ position, id, playerRef }) {
       {/* Zombie body */}
       <group userData={{ type: 'zombie', id: id }}>
         {/* Head */}
-        <mesh position={[0, 1.6, 0]} castShadow>
-          <boxGeometry args={[0.4, 0.4, 0.4]} />
-          <meshStandardMaterial color="#2d5016" />
+        <mesh position={[0, 1.6, 0]} castShadow receiveShadow>
+          <sphereGeometry args={[0.25, 16, 16]} />
+          <meshStandardMaterial
+            color="#4a6b3a"
+            roughness={0.9}
+            metalness={0.1}
+            emissive="#1a2a0a"
+            emissiveIntensity={0.1}
+          />
         </mesh>
 
-        {/* Body */}
-        <mesh position={[0, 1, 0]} castShadow>
-          <boxGeometry args={[0.6, 0.8, 0.3]} />
-          <meshStandardMaterial color="#3a6b1f" />
+        {/* Eyes (red glow) */}
+        <mesh position={[-0.1, 1.65, 0.2]} castShadow>
+          <sphereGeometry args={[0.04, 8, 8]} />
+          <meshStandardMaterial
+            color="#ff0000"
+            emissive="#ff0000"
+            emissiveIntensity={2}
+          />
+        </mesh>
+        <mesh position={[0.1, 1.65, 0.2]} castShadow>
+          <sphereGeometry args={[0.04, 8, 8]} />
+          <meshStandardMaterial
+            color="#ff0000"
+            emissive="#ff0000"
+            emissiveIntensity={2}
+          />
+        </mesh>
+
+        {/* Torso */}
+        <mesh position={[0, 1, 0]} castShadow receiveShadow>
+          <boxGeometry args={[0.5, 0.7, 0.25]} />
+          <meshStandardMaterial
+            color="#3a5a2a"
+            roughness={0.8}
+            metalness={0.2}
+          />
         </mesh>
 
         {/* Arms */}
-        <mesh position={[-0.4, 0.9, 0]} castShadow>
-          <boxGeometry args={[0.2, 0.7, 0.2]} />
-          <meshStandardMaterial color="#2d5016" />
+        <mesh position={[-0.35, 1, 0]} castShadow receiveShadow rotation={[0, 0, 0.3]}>
+          <cylinderGeometry args={[0.08, 0.08, 0.6, 8]} />
+          <meshStandardMaterial color="#3a5a2a" roughness={0.9} />
         </mesh>
-        <mesh position={[0.4, 0.9, 0]} castShadow>
-          <boxGeometry args={[0.2, 0.7, 0.2]} />
-          <meshStandardMaterial color="#2d5016" />
+        <mesh position={[0.35, 1, 0]} castShadow receiveShadow rotation={[0, 0, -0.3]}>
+          <cylinderGeometry args={[0.08, 0.08, 0.6, 8]} />
+          <meshStandardMaterial color="#3a5a2a" roughness={0.9} />
         </mesh>
 
         {/* Legs */}
-        <mesh position={[-0.2, 0.3, 0]} castShadow>
-          <boxGeometry args={[0.2, 0.6, 0.2]} />
-          <meshStandardMaterial color="#2d5016" />
+        <mesh position={[-0.15, 0.35, 0]} castShadow receiveShadow>
+          <cylinderGeometry args={[0.09, 0.09, 0.7, 8]} />
+          <meshStandardMaterial color="#2a4a1a" roughness={0.9} />
         </mesh>
-        <mesh position={[0.2, 0.3, 0]} castShadow>
-          <boxGeometry args={[0.2, 0.6, 0.2]} />
-          <meshStandardMaterial color="#2d5016" />
+        <mesh position={[0.15, 0.35, 0]} castShadow receiveShadow>
+          <cylinderGeometry args={[0.09, 0.09, 0.7, 8]} />
+          <meshStandardMaterial color="#2a4a1a" roughness={0.9} />
         </mesh>
+
+        {/* Green glow effect */}
+        <pointLight
+          position={[0, 1, 0]}
+          intensity={0.5}
+          distance={3}
+          color="#00ff00"
+          decay={2}
+        />
 
         {/* Health bar above head */}
         {health < 100 && (

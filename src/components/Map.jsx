@@ -113,23 +113,44 @@ function Map() {
 
       <RigidBody type="fixed">
         <mesh position={[12, 1, 12]} castShadow receiveShadow>
-          <cylinderGeometry args={[0.5, 0.5, 2]} />
-          <meshStandardMaterial color="#444" metalness={0.7} />
+          <cylinderGeometry args={[0.5, 0.5, 2, 16]} />
+          <meshStandardMaterial
+            color="#333"
+            metalness={0.8}
+            roughness={0.4}
+            emissive="#ff3300"
+            emissiveIntensity={0.2}
+          />
         </mesh>
+        <pointLight position={[12, 1, 12]} color="#ff3300" intensity={0.5} distance={5} />
       </RigidBody>
 
       <RigidBody type="fixed">
         <mesh position={[-12, 1, 12]} castShadow receiveShadow>
-          <cylinderGeometry args={[0.5, 0.5, 2]} />
-          <meshStandardMaterial color="#444" metalness={0.7} />
+          <cylinderGeometry args={[0.5, 0.5, 2, 16]} />
+          <meshStandardMaterial
+            color="#333"
+            metalness={0.8}
+            roughness={0.4}
+            emissive="#ff3300"
+            emissiveIntensity={0.2}
+          />
         </mesh>
+        <pointLight position={[-12, 1, 12]} color="#ff3300" intensity={0.5} distance={5} />
       </RigidBody>
 
       <RigidBody type="fixed">
         <mesh position={[12, 1, -12]} castShadow receiveShadow>
-          <cylinderGeometry args={[0.5, 0.5, 2]} />
-          <meshStandardMaterial color="#444" metalness={0.7} />
+          <cylinderGeometry args={[0.5, 0.5, 2, 16]} />
+          <meshStandardMaterial
+            color="#333"
+            metalness={0.8}
+            roughness={0.4}
+            emissive="#ff3300"
+            emissiveIntensity={0.2}
+          />
         </mesh>
+        <pointLight position={[12, 1, -12]} color="#ff3300" intensity={0.5} distance={5} />
       </RigidBody>
     </>
   )

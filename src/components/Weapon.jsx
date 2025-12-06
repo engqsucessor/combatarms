@@ -113,22 +113,76 @@ function Weapon() {
 
   return (
     <group ref={weaponRef}>
-      {/* Simple weapon model - will be replaced with actual model */}
-      <mesh position={[0, 0, 0]}>
-        <boxGeometry args={[0.1, 0.1, 0.8]} />
-        <meshStandardMaterial color="#333" />
+      {/* M4A1 Body */}
+      <mesh position={[0, 0, -0.2]} castShadow>
+        <boxGeometry args={[0.08, 0.12, 0.6]} />
+        <meshStandardMaterial
+          color="#1a1a1a"
+          metalness={0.7}
+          roughness={0.3}
+        />
+      </mesh>
+
+      {/* Magazine */}
+      <mesh position={[0, -0.15, -0.1]} castShadow>
+        <boxGeometry args={[0.06, 0.2, 0.15]} />
+        <meshStandardMaterial
+          color="#2a2a2a"
+          metalness={0.6}
+          roughness={0.4}
+        />
       </mesh>
 
       {/* Barrel */}
-      <mesh position={[0, 0, -0.5]}>
-        <cylinderGeometry args={[0.02, 0.02, 0.3]} />
-        <meshStandardMaterial color="#111" />
+      <mesh position={[0, 0.02, -0.6]} castShadow>
+        <cylinderGeometry args={[0.015, 0.015, 0.4, 12]} rotation={[Math.PI / 2, 0, 0]} />
+        <meshStandardMaterial
+          color="#0a0a0a"
+          metalness={0.9}
+          roughness={0.2}
+        />
       </mesh>
 
-      {/* Muzzle Flash */}
-      <sprite ref={muzzleFlashRef} position={[0, 0, -0.65]} scale={[0.2, 0.2, 1]}>
-        <spriteMaterial color="#ffff00" transparent opacity={0.8} />
+      {/* Front sight */}
+      <mesh position={[0, 0.08, -0.7]} castShadow>
+        <boxGeometry args={[0.02, 0.04, 0.02]} />
+        <meshStandardMaterial color="#222" metalness={0.5} />
+      </mesh>
+
+      {/* Stock */}
+      <mesh position={[0, -0.02, 0.15]} castShadow>
+        <boxGeometry args={[0.06, 0.08, 0.3]} />
+        <meshStandardMaterial
+          color="#2a2a2a"
+          metalness={0.4}
+          roughness={0.6}
+        />
+      </mesh>
+
+      {/* Grip */}
+      <mesh position={[0, -0.08, -0.05]} castShadow rotation={[0.3, 0, 0]}>
+        <boxGeometry args={[0.05, 0.12, 0.05]} />
+        <meshStandardMaterial color="#1a1a1a" roughness={0.9} />
+      </mesh>
+
+      {/* Muzzle Flash - Enhanced */}
+      <sprite ref={muzzleFlashRef} position={[0, 0, -0.82]} scale={[0.3, 0.3, 1]}>
+        <spriteMaterial
+          color="#ffaa00"
+          transparent
+          opacity={0.9}
+          blending={2}
+        />
       </sprite>
+
+      {/* Point light for muzzle flash */}
+      <pointLight
+        ref={muzzleFlashRef}
+        position={[0, 0, -0.8]}
+        color="#ffaa00"
+        intensity={0}
+        distance={10}
+      />
     </group>
   )
 }
